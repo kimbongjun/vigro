@@ -7,15 +7,6 @@
             <v-layout row wrap v-if="hasResult">
               <v-flex v-for="post in posts" v-bind:key="post.id" xs4 d-flex>
                 <v-content>
-                  <figure>
-                    <v-img
-                      :src="post.urlToImage"
-                      :lazy-src="post.urlToImage"
-                      aspect-ratio="1"
-                      class="grey lighten-2"
-                      alt
-                    />
-                  </figure>
                   <h1>{{post.title}}</h1>
                 </v-content>
               </v-flex>
@@ -38,9 +29,10 @@ export default {
   },
   computed: {
     hasResult() {
-      //const baseURI ="https://newsapi.org/v2/everything?q=bitcoin&from=2019-06-04&sortBy=publishedAt&apiKey=5ed7cecaa24949c9868af2e47f81b774";
+      const baseURI = "https://jsonplaceholder.typicode.com/todos";
       axios.get(baseURI).then(result => {
-        this.posts = result.data.articles;
+        this.posts = result.data;
+        console.log(this.posts);
         this.isLoading = false;
       });
       return this.posts.length > 0;
